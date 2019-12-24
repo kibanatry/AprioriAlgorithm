@@ -45,3 +45,17 @@ basket_portugal = (data[data['Country'] =="Portugal"]
           .set_index('InvoiceNo')) 
 print(basket_portugal.head(5))
 ############################################
+
+##################---HOT ENCODING---########################
+#This is done because many machine learning algorithms cannot work with categorical data directly. The categories must be converted into numbers. This is required for both input and output variables that are categorical
+def hot_encode(x): 
+    if(x<= 0): 
+        return 0
+    if(x>= 1): 
+        return 1
+
+######################################################
+#Apply Encoding to baskets
+basket_France=basket_France.applymap(hot_encode)
+basket_UK=basket_UK.applymap(hot_encode)
+basket_Portugal=basket_portugal.applymap(hot_encode)
