@@ -10,6 +10,7 @@ print("Size of data is ",len(data))
 
 #remove all empty/trailing spaces from the description
 data['Description']=data['Description'].str.strip()
+
 #remove all empty invoice numbers
 data.dropna(axis=0, subset=['InvoiceNo'], inplace=True)
 data['InvoiceNo']=data['InvoiceNo'].astype('str')
@@ -27,6 +28,20 @@ basket_France = (data[data['Country'] =="France"]
           .set_index('InvoiceNo')) 
 print(basket_France.head(5))
 basket_France.to_csv('OutputFrance.csv')
+############################################
 
-baket_other_france=data.pivot_table(index=['InvoiceNo', 'Description'],columns='Quantity',aggfunc=sum)
-baket_other_france.to_csv('OtherFrance.csv')
+#Creating baskets based on the countries
+basket_UK = (data[data['Country'] =="United Kingdom"] 
+          .groupby(['InvoiceNo', 'Description'])['Quantity'] 
+          .sum().unstack().reset_index().fillna(0) 
+          .set_index('InvoiceNo')) 
+print(basket_UK.head(5))
+###########################################
+
+#Creating baskets based on the countries
+basket_portugal = (data[data['Country'] =="Portugal"] 
+          .groupby(['InvoiceNo', 'Description'])['Quantity'] 
+          .sum().unstack().reset_index().fillna(0) 
+          .set_index('InvoiceNo')) 
+print(basket_portugal.head(5))
+############################################
