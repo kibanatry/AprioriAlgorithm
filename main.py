@@ -59,3 +59,10 @@ def hot_encode(x):
 basket_France=basket_France.applymap(hot_encode)
 basket_UK=basket_UK.applymap(hot_encode)
 basket_Portugal=basket_portugal.applymap(hot_encode)
+
+#Create the model
+freq_item=apriori(basket_France,min_support=0.5,use_colnames=True)
+
+#Creating the dataframe from the generated model#
+rules=association_rules(freq_item,metric="lift",min_threshold=0.3)
+print(rules.head)
