@@ -27,3 +27,6 @@ basket_France = (data[data['Country'] =="France"]
           .set_index('InvoiceNo')) 
 print(basket_France.head(5))
 basket_France.to_csv('OutputFrance.csv')
+
+baket_other_france=data.pivot_table(index=['InvoiceNo', 'Description'],columns='Quantity',aggfunc=sum)
+baket_other_france.to_csv('OtherFrance.csv')
